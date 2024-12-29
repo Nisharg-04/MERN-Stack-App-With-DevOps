@@ -120,7 +120,7 @@ sudo apt-get install trivy -y
 
 ## Kubernetes Implementation
 
-    The Kubernetes implementation for this project is located in the k8s folder. It includes the necessary manifests to deploy the application components to a Kubernetes cluster.
+- The Kubernetes implementation for this project is located in the k8s folder. It includes the necessary manifests to deploy the application components to a Kubernetes cluster.
 
 ### Kubernetes Manifests
 
@@ -173,3 +173,76 @@ sudo apt-get install trivy -y
 - <b>frontend-service.yml: Defines the Service for the frontend service.</b>
 
 ## Steps to Deploy on Kubernetes using Kind
+
+1. Install Kind: Follow the Kind installation guide to install Kind on your system.
+
+2. Create a Kind Cluster:
+
+```bash
+kind create cluster --name login-app
+```
+
+3. Apply the Namespace:
+
+```bash
+kubectl apply -f k8s/namespace.yml
+```
+
+4. Apply the StorageClass:
+
+```bash
+kubectl apply -f k8s/storage.yml
+```
+
+5. Apply the PersistentVolume and PersistentVolumeClaim for MongoDB:
+
+```bash
+kubectl apply -f k8s/mongodb-pv.yml
+kubectl apply -f k8s/mongodb-pvc.yml
+```
+
+6. Deploy MongoDB:
+
+```bash
+kubectl apply -f k8s/mongodb-deployment.yml
+kubectl apply -f k8s/mongodb-service.yml
+```
+
+7. Deploy Redis:
+
+```bash
+kubectl apply -f k8s/redis-deployment.yml
+kubectl apply -f k8s/redis-service.yml
+```
+
+8. Deploy the Backend Service:
+
+```bash
+kubectl apply -f k8s/backend-deployment.yml
+kubectl apply -f k8s/backend-service.yml
+```
+
+9. Deploy the Frontend Service:
+
+```bash
+kubectl apply -f k8s/frontend-deployment.yml
+kubectl apply -f k8s/frontend-service.yml
+```
+
+10. Access the Application: Use the Kind cluster IP to access the frontend service. You can get the Kind cluster IP using:
+
+```bash
+kubectl get nodes -o wide
+```
+
+11. To access on browser
+
+```bash
+kubectl port-forward -n login service/backend 4000:4000 --address=0.0.0.0
+kubectl port-forward -n login service/frontend 80:80 --address=0.0.0.0
+```
+
+## Conclusion
+#
+
+This project leverages Kubernetes for orchestration, providing a scalable and resilient deployment for the application components. The manifests in the k8s folder define the necessary resources and configurations to deploy the application to a Kubernetes cluster using Kind. 
