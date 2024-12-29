@@ -2,14 +2,12 @@
 
 ## 🛠️ Tech Stack:
 
-- **Backend:** Node.js, Express, MongoDB, Socket.io
+- **Backend:** Node.js, Express, MongoDB, Redis
 - **Frontend:** React, TailwindCSS
 - **Containerization:** Docker
 - **Orchestration:** Kubernetes (planned)
 - **Web Server:** Nginx
-- **State Management:** Zustand
 - **Authentication:** JWT
-- **Styling Components:** DaisyUI
 
 ## 🔧 Prerequisites:
 
@@ -29,7 +27,7 @@
 
 ### Pre-requisites to implement this project:
 
-nstall & Configure Docker by using below command, "NewGrp docker" will refresh the group config hence no need to restart the EC2 machine.
+Install & Configure Docker by using below command, "NewGrp docker" will refresh the group config.
 
 ```bash
 sudo apt-get update
@@ -42,7 +40,7 @@ sudo usermod -aG docker ubuntu && newgrp docker
 
 #
 
-- <b id="Jenkins">Install and configure Jenkins (Master machine)</b>
+- <b id="Jenkins">Install and configure Jenkins</b>
 
 ```bash
 sudo apt update -y
@@ -63,7 +61,7 @@ sudo apt-get install jenkins -y
 
 #
 
-- <b id="Trivy">Install Trivy (Jenkins Worker)</b>
+- <b id="Trivy">Install Trivy </b>
 
 ```bash
 sudo apt-get install wget apt-transport-https gnupg lsb-release -y
@@ -112,14 +110,66 @@ sudo apt-get install trivy -y
 
 #
 
-- <b>Now again, Go to <mark> Manage Jenkins --> System</mark> and search for Global Trusted Pipeline Libraries:</b
-
-#
-
-- <b>Now, go to github repository and under <mark>Automations</mark> directory update the <mark>instance-id</mark> field on both the <mark>updatefrontendnew.sh updatebackendnew.sh</mark> with the k8s worker's instance id</b>
+- <b>Now again, Go to <mark> Manage Jenkins --> System</mark> and search for Global Trusted Pipeline Libraries:</b>
 
 #
 
 - <b>Navigate to <mark> Manage Jenkins --> credentials</mark> and add credentials for docker login to push docker image:</b>
 
 #
+
+## Kubernetes Implementation
+
+    The Kubernetes implementation for this project is located in the k8s folder. It includes the necessary manifests to deploy the application components to a Kubernetes cluster.
+
+### Kubernetes Manifests
+
+#
+
+- <b>namespace.yml: Defines the namespace for the application.</b>
+
+#
+
+- <b>storage.yml: Defines the StorageClass for persistent storage.</b>
+
+#
+
+- <b>mongodb-pv.yml: Defines the PersistentVolume for MongoDB.</b>
+
+#
+
+- <b>mongodb-pvc.yml: Defines the PersistentVolumeClaim for MongoDB.</b>
+
+#
+
+- <b>mongodb-deployment.yml: Defines the Deployment for MongoDB.</b>
+
+#
+
+- <b>mongodb-service.yml: Defines the Service for MongoDB.</b>
+
+#
+
+- <b>redis-deployment.yml: Defines the Deployment for Redis.</b>
+
+#
+
+- <b>redis-service.yml: Defines the Service for Redis.</b>
+
+#
+
+- <b>backend-deployment.yml: Defines the Deployment for the backend service.</b>
+
+#
+
+- <b>backend-service.yml: Defines the Service for the backend service.</b>
+
+#
+
+- <b>frontend-deployment.yml: Defines the Deployment for the frontend service.</b>
+
+#
+
+- <b>frontend-service.yml: Defines the Service for the frontend service.</b>
+
+## Steps to Deploy on Kubernetes using Kind
