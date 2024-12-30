@@ -5,7 +5,7 @@
 - **Backend:** Node.js, Express, MongoDB, Redis
 - **Frontend:** React, TailwindCSS
 - **Containerization:** Docker
-- **Orchestration:** Kubernetes (planned)
+- **Orchestration:** Kubernetes
 - **Web Server:** Nginx
 - **Authentication:** JWT
 
