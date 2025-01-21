@@ -11,7 +11,7 @@ services:
     ports:
       - "27017:27017"
     networks:
-      - fullstack-chatapp
+      - login-app
 
 
   redis:
@@ -20,7 +20,7 @@ services:
     ports:
       - "6379:6379"
     networks:
-      - fullstack-chatapp
+      - login-app
 
       
   backend:
@@ -37,7 +37,7 @@ services:
       - mongodb
       - redis
     networks:
-      - fullstack-chatapp
+      - login-app
 
       
   frontend:
@@ -48,12 +48,12 @@ services:
     depends_on:
       - backend
     networks:
-      - fullstack-chatapp
+      - login-app
 
       
 
 networks:
-  fullstack-chatapp:
+  login-app:
     driver: bridge
 
 
